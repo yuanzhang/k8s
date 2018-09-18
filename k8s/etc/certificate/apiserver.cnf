@@ -1,0 +1,24 @@
+[ req ]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+[req_distinguished_name]
+[ v3_req ]
+basicConstraints = critical, CA:FALSE
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth, clientAuth
+#subjectKeyIdentifier = hash
+#authorityKeyIdentifier = keyid:always,issuer
+subjectAltName = @alt_names
+[alt_names]
+IP.1 = 10.0.0.1
+# slb
+IP.2 = 172.17.215.126
+# node + master + etcd
+IP.3 = 172.17.77.90
+IP.4 = 172.17.181.176
+IP.5 = 172.17.181.177
+DNS.1 = kubernetes
+DNS.2 = kubernetes.default
+DNS.3 = kubernetes.default.svc
+DNS.4 = kubernetes.default.svc.cluster
+DNS.5 = kubernetes.default.svc.cluster.local
