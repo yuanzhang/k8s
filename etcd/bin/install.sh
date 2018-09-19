@@ -1,6 +1,13 @@
 #!/bin/bash
 
+if [[ $# == 0 ]] 
+then
+	echo "run as: sh install.sh {1|2|3}, params is etcd1 | etcd2 | etcd3 ..."
+	exit
+fi
+
 # init
+ETCD_NAME=etcd$1
 TMP_DIR=etcd_perm_tmp
 rm -rf $TMP_DIR
 mkdir $TMP_DIR
@@ -34,6 +41,7 @@ cp ca.pem /etc/kubernetes/ssl
 # etcd 服务配置
 cp ${ETCD_FULL_CONF} .
 sed -i "s/{\$LOCAL_IP}/${LOCAL_IP}/g" $ETCD_CONF
+sed -i "s/{\$ETCD_NAME}/${ETCD_NAME}/g" $ETCD_CONF
 cp ${ETCD_CONF} /etc/etcd/
 cp ${ETCD_FULL_SERVICE} /usr/lib/systemd/system/
 
