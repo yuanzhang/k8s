@@ -1,9 +1,23 @@
 #!/bin/bash
 
-if [[ $# == 0 ]] 
+if [[ $# < 3 ]] 
 then
-	echo "run as: sh install.sh {1|2|3}, params is etcd1 | etcd2 | etcd3 ..."
+	echo "run as: sh install.sh {1|2|3} {0|1} {etcd2=https://192.168.50.56:2380,etcd3=https://192.168.50.57:2380} "
+	echo "params 1: etcd1 | etcd2 | etcd3 ..."
+	echo "params 2: is master 0 or 1"
+	echo "params 3: clusterips info"
 	exit
+fi
+
+
+IS_MASTER=$2
+INITIAL_CLUSTER=$3
+
+if [[ ${IS_MASTER} == 1 ]]
+then
+	STATUS=new
+else
+	STATUS=existing
 fi
 
 # init
@@ -23,6 +37,8 @@ K8S_KEY_DIR=../../../k8s/key
 
 
 # 安装etcd
+yum remove -y etcd
+rm -rf /var/lib/etcd/
 yum install -y etcd
 
 # etcd 证书
@@ -42,6 +58,8 @@ cp ca.pem /etc/kubernetes/ssl
 cp ${ETCD_FULL_CONF} .
 sed -i "s/{\$LOCAL_IP}/${LOCAL_IP}/g" $ETCD_CONF
 sed -i "s/{\$ETCD_NAME}/${ETCD_NAME}/g" $ETCD_CONF
+sed -i "s/{\$STATUS}/${STATUS}/g" $ETCD_CONF
+sed -i "s/{\$INITIAL_CLUSTER}/${INITIAL_CLUSTER}/g" $ETCD_CONF
 cp ${ETCD_CONF} /etc/etcd/
 cp ${ETCD_FULL_SERVICE} /usr/lib/systemd/system/
 
