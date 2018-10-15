@@ -8,7 +8,7 @@ modprobe -- ip_vs_rr
 modprobe -- ip_vs_wrr
 modprobe -- ip_vs_sh
 modprobe -- nf_conntrack_ipv4
-mod 755 /etc/rc.local
+chmod 755 /etc/rc.local
 
 echo "
 # sysctl settings are defined through files in

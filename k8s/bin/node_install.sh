@@ -10,10 +10,6 @@ then
 fi
 
 
-## 后续设置
-sh install/tail_install.sh
-sh install/tools_install.sh
-
 ## 拷贝配置文件
               
 ETCD_SERVERS=$2
@@ -22,6 +18,7 @@ MASTER_IP=$1
 HOSENAME=`hostname`
 LOCAL_IP=`ifconfig eth0|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 ETC=../etc/etc-kubernetes
+KUBERNETES_ETC=../etc/kubernetes
 TMP_DIR=master_tmp
 
 KUBELET=${ETC}/kubelet
@@ -42,7 +39,7 @@ sed -i "s/{\$BIND_ADDRESS}/${LOCAL_IP}/g" ${TMP_PROXY}
 sed -i "s/{\$MASTER_IP}/${MASTER_IP}/g" ${TMP_CONFIG}
 
 cp ${TMP_DIR}/* /etc/kubernetes/ -rf
-
+cp ${KUBERNETES_ETC}/* /etc/kubernetes/ -rf
 
 ## key文件
 KEY_DIR=../key
@@ -56,12 +53,17 @@ cp ${SYSTEMCTL_DIR}/kube-proxy.service ${SYSTEM_DIR}
 cp ${SYSTEMCTL_DIR}/kubelet.service ${SYSTEM_DIR}
 
 
-## 启动服务
+## 后续设置
+sh install/tail_install.sh
+sh install/tools_install.sh
 
-for k in kubelet \
-    kube-proxy \
-do  systemctl start  $k \
-    systemctl enable $k \
-    systemctl status $k \
-done
+
+## 启动服务
+systemctl start kubelet
+systemctl enable kubelet
+systemctl status kubelet
+
+systemctl start kube-proxy
+systemctl enable kube-proxy
+systemctl status kube-proxy
 
