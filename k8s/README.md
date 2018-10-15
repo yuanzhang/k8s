@@ -8,7 +8,7 @@
 ### 安装服务依赖
 - 安装etcd (https://github.com/wangzhenxing/shell/tree/master/etcd)
 - 安装flannel（https://github.com/wangzhenxing/shell/tree/master/flannel）
-- 安装docker（由独立脚本安装）
+- 安装docker（https://github.com/wangzhenxing/shell/tree/master/docker）
 
 - 自行下载k8s二进制文件包
 - 安装master节点(sh master_install.sh)
