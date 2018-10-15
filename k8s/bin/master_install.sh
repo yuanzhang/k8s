@@ -17,11 +17,6 @@ sh install/certificate_install.sh
 sh install/config_install.sh
 
 
-## 后续设置
-sh install/tail_install.sh
-sh install/tools_install.sh
-
-
 ## 拷贝配置到/etc/kubernetes
 ETCD_SERVERS=$1
 HOSENAME=`hostname`
@@ -68,6 +63,11 @@ KEY_DIR=../key
 cp ${KEY_DIR}/* /etc/kubernetes/ssl/ -rf
 
 
+## 后续设置
+sh install/tail_install.sh
+sh install/tools_install.sh
+
+
 ## systemctl配置
 SYSTEMCTL_DIR=../etc/systemctl/
 SYSTEM_DIR=/usr/lib/systemd/system/
@@ -84,8 +84,8 @@ for k in kube-apiserver \
     kube-scheduler \
     kubelet \
     kube-proxy \
-do  systemctl start  $k \
-    systemctl enable $k \
-    systemctl status $k \
+do  systemctl start  $k; \
+    systemctl enable $k; \
+    systemctl status $k; \
 done
 
