@@ -1,4 +1,5 @@
 #!/bin/bash
+# 创建鉴权证书
 
 TMP_DIR=perm_tmp
 KEY_DIR=../key
