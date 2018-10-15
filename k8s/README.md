@@ -4,10 +4,23 @@
 
 - 针对k8s集群服务，尽量脚本化部署
 
-## 软件依赖
-- etcd
-- flannel
-- docker
+## 安装步骤
+### 安装服务依赖
+- 安装etcd (https://github.com/wangzhenxing/shell/tree/master/etcd)
+- 安装flannel（https://github.com/wangzhenxing/shell/tree/master/flannel）
+- 安装docker（由独立脚本安装）
+
+- 自行下载k8s二进制文件包
+- 安装master节点(sh master_install.sh)
+  a、生成公用证书 certificate_install.sh
+  b、生成公用配置文件 config_install.sh
+  c、修改api_server controller-manager scheduler kubelet kube-proxy配置和启动配置
+  d、启动以上服务
+- 安装node节点 (sh node_install.sh)
+  a、安装公共证书和配置文件
+  b、修改kubelet kube-proxy配置和启动配置
+  c、启动以上服务
+
 
 ## bin目录
 - 脚本bin/master_install.sh
