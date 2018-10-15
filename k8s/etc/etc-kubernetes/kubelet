@@ -7,7 +7,8 @@
 # KUBELET_PORT="--port=10250"
 
 # You may leave this blank to use the actual hostname
-KUBELET_HOSTNAME="--hostname-override=iZ2ze3u8pffjhtzg1jg4n9Z"
+#KUBELET_HOSTNAME="--hostname-override=iZ2ze3u8pffjhtzg1jg4n9Z"
+KUBELET_HOSTNAME="--hostname-override={$HOSTNAME}"
 
 # location of the api-server
 

@@ -5,7 +5,8 @@
 #
 
 # The address on the local server to listen to.
-KUBE_API_ADDRESS="--bind-address=172.17.77.90"
+#KUBE_API_ADDRESS="--bind-address=172.17.77.90"
+KUBE_API_ADDRESS="--bind-address={$BIND_ADDRESS}"
 
 # The port on the local server to listen on.
 KUBE_API_PORT="--secure-port=6443"
@@ -14,7 +15,8 @@ KUBE_API_PORT="--secure-port=6443"
 # KUBELET_PORT="--kubelet-port=10250"
 
 # Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=https://172.17.77.90:2379,https://172.17.181.176:2379,https://172.17.181.177:2379"
+#KUBE_ETCD_SERVERS="--etcd-servers=https://172.17.77.90:2379,https://172.17.181.176:2379,https://172.17.181.177:2379"
+KUBE_ETCD_SERVERS="--etcd-servers={$ETCD_SERVERS}"
 
 # Address range to use for services
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.0.0.0/12"
