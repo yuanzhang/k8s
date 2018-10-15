@@ -16,6 +16,7 @@
   b、生成公用配置文件 config_install.sh
   c、修改api_server controller-manager scheduler kubelet kube-proxy配置和启动配置
   d、启动以上服务
+  e、生成完的配置和证书统一push到git，供node节点使用
 - 安装node节点 (sh node_install.sh)
   a、安装公共证书和配置文件
   b、修改kubelet kube-proxy配置和启动配置
