@@ -67,7 +67,7 @@ rm -rf *.cnf
 cd ..
 rm -rf ${KEY_DIR_BACKUP}
 mv ${KEY_DIR} ${KEY_DIR_BACKUP}
-mv -rf ${TMP_DIR} ${KEY_DIR}
+mv -f ${TMP_DIR} ${KEY_DIR}
 
 # 拷贝配置到/etc/kubernetes/
 cp ${KEY_DIR}/* /etc/kubernetes/ssl/ -rf

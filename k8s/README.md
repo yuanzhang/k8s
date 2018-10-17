@@ -6,18 +6,18 @@
 
 ## 安装步骤
 ### 安装服务依赖
+- 生成公用证书 cd bin; sh pre_install.sh (建议证书生成后push到自己的仓库，方便node脚本安装后续服务：依赖ca.pem)
 - 安装etcd (https://github.com/wangzhenxing/shell/tree/master/etcd)
 - 安装flannel（https://github.com/wangzhenxing/shell/tree/master/flannel）
 - 安装docker（https://github.com/wangzhenxing/shell/tree/master/docker）
 
 - 自行下载k8s二进制文件包
-- 安装master节点(sh master_install.sh)
-  a、生成公用证书 certificate_install.sh
-  b、生成公用配置文件 config_install.sh
-  c、修改api_server controller-manager scheduler kubelet kube-proxy配置和启动配置
-  d、启动以上服务
-  e、生成完的配置和证书统一push到git，供node节点使用
-- 安装node节点 (sh node_install.sh)
+- 安装master节点(cd bin; sh master_install.sh)
+  a、生成公用配置文件 config_install.sh
+  b、修改api_server controller-manager scheduler kubelet kube-proxy配置和启动配置
+  c、启动以上服务
+  d、生成完的配置和证书统一push到git，供node节点使用
+- 安装node节点 (cd bin; sh node_install.sh)
   a、安装公共证书和配置文件
   b、修改kubelet kube-proxy配置和启动配置
   c、启动以上服务

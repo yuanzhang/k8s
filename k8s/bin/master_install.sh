@@ -4,13 +4,13 @@ set -x
 
 if [[ $# < 1  ]] 
 then
-    echo "run as: sh master_install.sh  {https:\/\/172.17.77.90:2379,https:\/\/172.17.181.176:2379,https:\/\/172.17.181.177:2379} "
+    echo "run as: sh master_install.sh  'https:\/\/172.17.77.90:2379,https:\/\/172.17.181.176:2379,https:\/\/172.17.181.177:2379' "
     echo "params 1: etcd servers"
     exit
 fi
 
 ## 生成key文件
-sh install/certificate_install.sh
+#sh install/certificate_install.sh
 
 
 ## 生成配置文件
@@ -55,6 +55,7 @@ sed -i "s/{\$BIND_ADDRESS}/${LOCAL_IP}/g" ${TMP_PROXY}
 sed -i "s/{\$MASTER_IP}/${MASTER_IP}/g" ${TMP_CONFIG}
 
 cp ${TMP_DIR}/* /etc/kubernetes/ -rf
+rm -rf ${TMP_DIR}
 
 
 
@@ -79,13 +80,14 @@ cp ${SYSTEMCTL_DIR}/kubelet.service ${SYSTEM_DIR}
 
 
 ## 启动服务
+systemctl daemon-reload
 for k in kube-apiserver \
     kube-controller-manager \
     kube-scheduler \
     kubelet \
-    kube-proxy \
-do  systemctl start  $k; \
-    systemctl enable $k; \
-    systemctl status $k; \
+    kube-proxy 
+do  systemctl start  $k; 
+    systemctl enable $k;
+    systemctl status $k -l;
 done
 

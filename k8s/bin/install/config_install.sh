@@ -6,13 +6,14 @@ KEY_DIR_BACKUP=../key_backup
 MASTER_IP=`ifconfig eth0|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 MASTER_IP=172.17.77.90
 KUBERNETES_CONF=../etc/kubernetes/
+TOKEN=token.csv
 
 rm -rf ${TMP_DIR}
 mkdir ${TMP_DIR}
 cd ${TMP_DIR}
 
 ########## 生成Token文件##########
-echo "`head -c 16 /dev/urandom | od -An -t x | tr -d ' '`,kubelet-bootstrap,10001,\"system:kubelet-bootstrap\"" > token.csv
+echo "`head -c 16 /dev/urandom | od -An -t x | tr -d ' '`,kubelet-bootstrap,10001,\"system:kubelet-bootstrap\"" > ${TOKEN}
 
 
 ########## 生成kubectl的kubeconfig文件 ##########
@@ -96,6 +97,7 @@ kubectl config use-context default \
 
 cp kubelet.kubeconfig bootstrap.kubeconfig kube-proxy.kubeconfig /etc/kubernetes/
 cp kubelet.kubeconfig bootstrap.kubeconfig kube-proxy.kubeconfig ../${KUBERNETES_CONF}
+cp ${TOKEN} /etc/kubernetes/
 
 cd ../
-#rm -rf ${TMP_DIR}
+rm -rf ${TMP_DIR}
