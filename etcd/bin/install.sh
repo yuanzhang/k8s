@@ -1,8 +1,9 @@
 #!/bin/bash
+set -x
 
 if [[ $# < 3 ]] 
 then
-	echo "run as: sh install.sh {1|2|3} {0|1} {etcd2=https://192.168.50.56:2380,etcd3=https://192.168.50.57:2380} "
+	echo "run as: sh install.sh {etcd1|etcd2|etcd3} {0|1} {'etcd2=https:\/\/192.168.50.56:2380,etcd3=https:\/\/192.168.50.57:2380'} "
 	echo "params 1: etcd1 | etcd2 | etcd3 ..."
 	echo "params 2: is master 0 or 1"
 	echo "params 3: clusterips info"
@@ -21,7 +22,7 @@ else
 fi
 
 # init
-ETCD_NAME=etcd$1
+ETCD_NAME=$1
 TMP_DIR=etcd_perm_tmp
 rm -rf $TMP_DIR
 mkdir $TMP_DIR
@@ -60,9 +61,13 @@ sed -i "s/{\$LOCAL_IP}/${LOCAL_IP}/g" $ETCD_CONF
 sed -i "s/{\$ETCD_NAME}/${ETCD_NAME}/g" $ETCD_CONF
 sed -i "s/{\$STATUS}/${STATUS}/g" $ETCD_CONF
 sed -i "s/{\$INITIAL_CLUSTER}/${INITIAL_CLUSTER}/g" $ETCD_CONF
-cp ${ETCD_CONF} /etc/etcd/
-cp ${ETCD_FULL_SERVICE} /usr/lib/systemd/system/
+cp ${ETCD_CONF} /etc/etcd/ -f
+cp ${ETCD_FULL_SERVICE} /usr/lib/systemd/system/ -f
+
+cd ..
+rm -rf ${TMP_DIR}
 
 systemctl daemon-reload
 systemctl start etcd
 systemctl enable etcd
+systemctl status etcd -l
