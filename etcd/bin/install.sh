@@ -47,10 +47,7 @@ yum install -y etcd
 cp ../../etc/${ETCD_CNF} .
 sed -i "s/{\$ip1}/${LOCAL_IP}/g" $ETCD_CNF
 cp ${K8S_KEY_DIR}/ca.pem .
-cp ${K8S_KEY_DIR}/ca.pem ${KUBERNETES_CONF}/ssl/ -f
 cp ${K8S_KEY_DIR}/ca.key .
-cp ${K8S_KEY_DIR}/ca.key ${KUBERNETES_CONF}/ssl/ -f
-cp ${K8S_KEY_DIR}/ca.srl ${KUBERNETES_CONF}/ssl/ -f
 openssl genrsa -out etcd.key 3072
 openssl req -new -key etcd.key -out etcd.csr -subj "/CN=etcd/OU=System/C=CN/ST=Shanghai/L=Shanghai/O=k8s" -config etcd.cnf
 openssl x509 -req -in etcd.csr -CA ca.pem -CAkey ca.key -CAcreateserial -out etcd.pem -days 1095 -extfile etcd.cnf -extensions v3_req
@@ -58,6 +55,15 @@ mkdir -p /etc/etcd/ssl
 mkdir -p /etc/kubernetes/ssl
 cp etcd.key etcd.pem /etc/etcd/ssl
 cp ca.pem /etc/kubernetes/ssl
+
+if [[ ${IS_MASTER} == 1 ]]
+then
+    cp etcd.key etcd.pem ../../etc/ -f
+else
+    cp ../../etc/etcd.key /etc/etcd/ssl/ -f
+    cp ../../etc/etcd.pem /etc/etcd/ssl/ -f
+fi
+
 
 # etcd 服务配置
 cp ${ETCD_FULL_CONF} .
