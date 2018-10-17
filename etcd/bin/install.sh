@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 if [[ $# < 3 ]] 
 then
@@ -49,6 +48,7 @@ sed -i "s/{\$ip1}/${LOCAL_IP}/g" $ETCD_CNF
 
 if [[ ${IS_MASTER} == 1 ]]
 then
+    echo '<master node>'
     cp ${K8S_KEY_DIR}/ca.pem .
     cp ${K8S_KEY_DIR}/ca.key .
     openssl genrsa -out etcd.key 3072
@@ -60,6 +60,7 @@ then
     cp ca.pem /etc/kubernetes/ssl
     cp etcd.key etcd.pem ../../etc/ -f
 else
+    echo '<member node>'
     cp ../../etc/etcd.key /etc/etcd/ssl/ -f
     cp ../../etc/etcd.pem /etc/etcd/ssl/ -f
 fi
