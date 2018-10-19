@@ -15,7 +15,7 @@ fi
 ETCD_SERVERS=$2
 MASTER_IP=$1
 
-HOSENAME=`hostname`
+HOSTNAME=`hostname`
 LOCAL_IP=`ifconfig eth0|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 ETC=../etc/etc-kubernetes
 KUBERNETES_ETC=../etc/kubernetes

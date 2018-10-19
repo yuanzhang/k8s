@@ -15,7 +15,7 @@ sh install/config_install.sh
 
 ## 拷贝配置到/etc/kubernetes
 ETCD_SERVERS=$1
-HOSENAME=`hostname`
+HOSTNAME=`hostname`
 LOCAL_IP=`ifconfig eth0|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 MASTER_IP=${LOCAL_IP}
 ETC=../etc/etc-kubernetes
