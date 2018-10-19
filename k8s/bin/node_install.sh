@@ -59,11 +59,13 @@ sh install/tools_install.sh
 
 
 ## 启动服务
+systemctl daemon-reload
+
 systemctl start kubelet
 systemctl enable kubelet
-systemctl status kubelet
+systemctl status kubelet -l
 
 systemctl start kube-proxy
 systemctl enable kube-proxy
-systemctl status kube-proxy
+systemctl status kube-proxy -l
 

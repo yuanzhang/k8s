@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 
 if [[ $# < 1  ]] 
 then
@@ -8,9 +7,6 @@ then
     echo "params 1: etcd servers"
     exit
 fi
-
-## 生成key文件
-#sh install/certificate_install.sh
 
 
 ## 生成配置文件
