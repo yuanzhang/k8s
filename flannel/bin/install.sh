@@ -39,6 +39,7 @@ echo FLANNEL_OPTIONS="${FLANNEL_OPTIONS}" >> ${FLANNEL_CONFIG}
 
 cp $fn.key $fn.pem /etc/kubernetes/ssl -f
 
+cd ..
 rm -rf ${TMP_DIR}
 
 systemctl daemon-reload
