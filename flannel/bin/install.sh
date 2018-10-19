@@ -2,7 +2,7 @@
 
 if [[ $# < 1 ]] 
 then
-	echo "run as: sh install.sh \"https:\/\/192.168.50.55:2379,https:\/\/192.168.50.56:2379,https:\/\/192.168.50.57:2379\" "
+	echo "run as: sh install.sh 'https:\/\/192.168.50.55:2379,https:\/\/192.168.50.56:2379,https:\/\/192.168.50.57:2379' "
 	echo "params 1: etcd endpoints"
 	exit
 fi
@@ -37,6 +37,11 @@ sed -i "s/http:\/\/127.0.0.1:2379/${ETCD_ENDPOINTS}/g"  ${FLANNEL_CONFIG}
 sed -i "s/atomic.io/k8s/g"  ${FLANNEL_CONFIG}
 echo FLANNEL_OPTIONS="${FLANNEL_OPTIONS}" >> ${FLANNEL_CONFIG}
 
-cp $fn.key $fn.pem /etc/kubernetes/ssl
+cp $fn.key $fn.pem /etc/kubernetes/ssl -f
 
+rm -rf ${TMP_DIR}
+
+systemctl daemon-reload
 systemctl start flanneld
+systemctl enable flanneld
+systemctl status flanneld -l
