@@ -82,7 +82,8 @@ for k in kube-apiserver \
     kube-scheduler \
     kubelet \
     kube-proxy 
-do  systemctl start  $k; 
+do  systemctl stop  $k; 
+    systemctl start  $k; 
     systemctl enable $k;
     systemctl status $k -l;
 done

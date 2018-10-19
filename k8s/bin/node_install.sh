@@ -2,7 +2,7 @@
 set -e
 set -x
 
-if [[ $# < 1  ]] 
+if [[ $# < 2  ]] 
 then
     echo "run as: sh node_install.sh {master_ip} {https:\/\/172.17.77.90:2379,https:\/\/172.17.181.176:2379,https:\/\/172.17.181.177:2379} "
     echo "params 1: etcd servers"
@@ -19,7 +19,7 @@ HOSTNAME=`hostname`
 LOCAL_IP=`ifconfig eth0|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 ETC=../etc/etc-kubernetes
 KUBERNETES_ETC=../etc/kubernetes
-TMP_DIR=master_tmp
+TMP_DIR=node_tmp
 
 KUBELET=${ETC}/kubelet
 TMP_KUBELET=${TMP_DIR}/kubelet
@@ -57,14 +57,17 @@ cp ${SYSTEMCTL_DIR}/kubelet.service ${SYSTEM_DIR}
 sh install/tail_install.sh
 sh install/tools_install.sh
 
+rm -rf ${TMP_DIR}
 
 ## 启动服务
 systemctl daemon-reload
 
+systemctl stop kubelet
 systemctl start kubelet
 systemctl enable kubelet
 systemctl status kubelet -l
 
+systemctl stop kube-proxy
 systemctl start kube-proxy
 systemctl enable kube-proxy
 systemctl status kube-proxy -l
