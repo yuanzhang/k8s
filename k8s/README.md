@@ -13,14 +13,14 @@
 
 - 自行下载k8s二进制文件包
 - 安装master节点(cd bin; sh master_install.sh)
-  a、生成公用配置文件 config_install.sh
-  b、修改api_server controller-manager scheduler kubelet kube-proxy配置和启动配置
-  c、启动以上服务
-  d、生成完的配置和证书统一push到git，供node节点使用
+  - a、生成公用配置文件 config_install.sh
+  - b、修改api_server controller-manager scheduler kubelet kube-proxy配置和启动配置
+  - c、启动以上服务
+  - d、生成完的配置和证书统一push到git，供node节点使用
 - 安装node节点 (cd bin; sh node_install.sh)
-  a、安装公共证书和配置文件
-  b、修改kubelet kube-proxy配置和启动配置
-  c、启动以上服务
+  - a、安装公共证书和配置文件
+  - b、修改kubelet kube-proxy配置和启动配置
+  - c、启动以上服务
 
 
 ## bin目录
