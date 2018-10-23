@@ -11,6 +11,6 @@ spec:
     spec:
       containers:
       - name: my-nginx
-        image: cloudsky23/nginx
+        image: cloudsky23/nginx:1.12.2
         ports:
         - containerPort: 80

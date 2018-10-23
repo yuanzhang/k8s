@@ -21,7 +21,7 @@ spec:
     matchLabels: {k8s-app: coredns1, pod-template-hash: 557ccf49}
   template:
     metadata:
-      creationTimestamp: !!net.sf.json.JSONNull {}
+      creationTimestamp: "2018-10-19T07:17:03Z"
       labels: {k8s-app: coredns1, pod-template-hash: 557ccf49}
     spec:
       volumes:
