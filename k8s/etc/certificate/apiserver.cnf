@@ -10,7 +10,7 @@ extendedKeyUsage = serverAuth, clientAuth
 #authorityKeyIdentifier = keyid:always,issuer
 subjectAltName = @alt_names
 [alt_names]
-IP.1 = 10.0.0.1
+IP.1 = 10.128.0.1
 # slb
 IP.2 = 172.17.215.126
 # node + master + etcd
