@@ -20,6 +20,6 @@ KUBELET_POD_INFRA_CONTAINER="--pod-infra-container-image=cloudsky23/k8s-pause-am
 KUBELET_ARGS="--kubeconfig=/etc/kubernetes/kubelet.kubeconfig \
               --bootstrap-kubeconfig=/etc/kubernetes/bootstrap.kubeconfig \
               --root-dir=/var/lib/kubelet \
-              --cluster-dns=10.0.0.2 \
+              --cluster-dns=10.128.0.2 \
               --cluster-domain=cluster.local \
               "
