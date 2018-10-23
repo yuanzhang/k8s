@@ -1,0 +1,22 @@
+# by www.bejson.com 
+kind: Service
+apiVersion: v1
+metadata:
+  name: coredns1
+  namespace: kube-system
+  selfLink: /api/v1/namespaces/kube-system/services/coredns1
+  uid: faa79c56-d36e-11e8-b603-00163e06e1f3
+  resourceVersion: '369411'
+  creationTimestamp: '2018-10-19T07:17:03Z'
+  labels: {k8s-app: coredns1, kubernetes.io/cluster-service: 'true', kubernetes.io/name: CoreDNS1}
+  annotations: {prometheus.io/port: '9153', prometheus.io/scrape: 'true'}
+spec:
+  ports:
+  - {name: dns, protocol: UDP, port: 53, targetPort: 53}
+  - {name: dns-tcp, protocol: TCP, port: 53, targetPort: 53}
+  selector: {k8s-app: coredns1}
+  clusterIP: 10.128.0.2
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}
