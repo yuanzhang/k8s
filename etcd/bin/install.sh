@@ -63,6 +63,7 @@ cp ${ETCD_FULL_CONF} .
 sed -i "s/{\$LOCAL_IP}/${LOCAL_IP}/g" $ETCD_CONF
 sed -i "s/{\$ETCD_NAME}/${ETCD_NAME}/g" $ETCD_CONF
 sed -i "s/{\$STATUS}/${STATUS}/g" $ETCD_CONF
+#echo "this is ccc:" ${INITIAL_CLUSTER}
 sed -i "s/{\$INITIAL_CLUSTER}/${INITIAL_CLUSTER}/g" $ETCD_CONF
 cp ${ETCD_CONF} /etc/etcd/ -f
 cp ${ETCD_FULL_SERVICE} /usr/lib/systemd/system/ -f
