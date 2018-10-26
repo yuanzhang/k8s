@@ -4,7 +4,7 @@ TMP_DIR=config_tmp
 KEY_DIR=../key
 KEY_DIR_BACKUP=../key_backup
 MASTER_IP=`ifconfig eth0|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
-MASTER_IP=172.17.77.90
+#MASTER_IP=172.17.77.90
 KUBERNETES_CONF=../etc/kubernetes/
 TOKEN=token.csv
 

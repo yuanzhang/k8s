@@ -11,12 +11,6 @@ extendedKeyUsage = serverAuth, clientAuth
 subjectAltName = @alt_names
 [alt_names]
 IP.1 = 10.128.0.1
-# slb
-IP.2 = 172.17.215.126
-# node + master + etcd
-IP.3 = 172.17.77.90
-IP.4 = 172.17.181.176
-IP.5 = 172.17.181.177
 DNS.1 = kubernetes
 DNS.2 = kubernetes.default
 DNS.3 = kubernetes.default.svc

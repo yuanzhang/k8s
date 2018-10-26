@@ -1,5 +1,13 @@
 #!/bin/bash
 # 创建鉴权证书
+set -e
+
+if [[ $# < 1  ]] 
+then
+    echo "run as: sh pre_install.sh  '172.17.77.90,172.17.181.176,172.17.181.177' "
+    echo "params 1: etcd servers"
+    exit
+fi
 
 TMP_DIR=perm_tmp
 KEY_DIR=../key
@@ -21,7 +29,17 @@ openssl req -x509 -new -nodes -key ca.key -days 1095 -out ca.pem -subj \
 
 ########## apiserver 证书 ##########
 cp ../../etc/certificate/apiserver.cnf .
-cp ../../etc/certificate/apiserver_perm.cnf .
+cp ../../etc/certificate/apiserver_perm.cnf . 
+IFS="," 
+arr=($1)
+I=1
+for ip in ${arr[@]}
+do
+    let I+=1
+    ip_name="IP.${I} = ${ip}"
+    sed -i "\[alt_names\]/a/${ip_name}" apiserver.cnf
+    sed -i "\[alt_names\]/a/${ip_name}" apiserver_perm.cnf
+done
 openssl genrsa -out apiserver.key 3072
 # 生成证书请求
 openssl req -new -key apiserver.key -out apiserver.csr -subj \
@@ -63,7 +81,7 @@ openssl x509 -req -in $name.csr \
         -extfile $conf -extensions v3_req
 
 
-rm -rf *.cnf
+#rm -rf *.cnf
 cd ..
 rm -rf ${KEY_DIR_BACKUP}
 mv ${KEY_DIR} ${KEY_DIR_BACKUP}
