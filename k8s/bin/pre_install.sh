@@ -5,7 +5,7 @@ set -e
 if [[ $# < 1  ]] 
 then
     echo "run as: sh pre_install.sh  '172.17.77.90,172.17.181.176,172.17.181.177' "
-    echo "params 1: etcd servers"
+    echo "params 1: server ips"
     exit
 fi
 
