@@ -37,9 +37,11 @@ for ip in ${arr[@]}
 do
     let I+=1
     ip_name="IP.${I} = ${ip}"
-    sed -i "\[alt_names\]/a/${ip_name}" apiserver.cnf
-    sed -i "\[alt_names\]/a/${ip_name}" apiserver_perm.cnf
+    echo ${ip_name}
+    sed -i "/\[alt_names\]/a ${ip_name}" apiserver.cnf
+    sed -i "/\[alt_names\]/a ${ip_name}" apiserver_perm.cnf
 done
+cat apiserver.cnf
 openssl genrsa -out apiserver.key 3072
 # 生成证书请求
 openssl req -new -key apiserver.key -out apiserver.csr -subj \
@@ -81,7 +83,7 @@ openssl x509 -req -in $name.csr \
         -extfile $conf -extensions v3_req
 
 
-#rm -rf *.cnf
+rm -rf *.cnf
 cd ..
 rm -rf ${KEY_DIR_BACKUP}
 mv ${KEY_DIR} ${KEY_DIR_BACKUP}
