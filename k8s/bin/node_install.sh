@@ -9,6 +9,15 @@ then
     exit
 fi
 
+## 停止服务
+for k in kube-apiserver \
+    kube-controller-manager \
+    kube-scheduler \
+    kubelet \
+    kube-proxy 
+do  
+	systemctl stop  $k; 
+done
 
 ## 拷贝配置文件
               
